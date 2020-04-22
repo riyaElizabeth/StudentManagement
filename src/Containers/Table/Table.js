@@ -30,6 +30,7 @@ class Table extends Component{
         item:{
 Id:''
         },
+        List:{},
 selectedId:0,index:undefined
     }
     
@@ -41,6 +42,7 @@ selectedId:0,index:undefined
     }
     onClickEdit=(student,i)=>{
         this.setState({
+            studentList:this.props.lists,
             modal:!this.state.modal,
       selectedStudent:{...student},
       selectedId:student.Id,
@@ -155,18 +157,21 @@ newmark: e.target.value
 }
 
     findText=()=>{
-        const {studentList}=this.state
+            const {studentList}=this.state
+        
      const list=  studentList.filter((item)=>{
               return item.First_Name.toLowerCase().concat(item.Last_Name.toLowerCase()).includes(this.state.input.toLowerCase())
             })
+            console.log(list)
                this.setState({
           studentList:list
     })
   }
 clearText=()=>{
-    const {studentList}=this.state
+    console.log(this.props)
+    const {lists}=this.props
     this.setState({
-        studentList:studentList,
+        studentList:lists,
         input:" "
     })
 }
