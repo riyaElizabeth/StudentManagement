@@ -1,8 +1,13 @@
 import  React , {Component} from 'react';
 import Edit from './edit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Students from './Table'
+import Search from './Search';
+import List from './List';
+import  Addrow from './Addrow';
+import Delete from './delete';
 
-class Table extends Component{
+class student extends Component{
 
     state={  studentList:[],
             input:'',
@@ -182,7 +187,7 @@ onpositionChange=(e)=>{
 }
 
 deleteRow=(row)=>{
-   
+   console.log(row)
 const index = this.state.studentList.findIndex((item)=>item.Id===row)
 const {studentList}=this.state
      studentList.splice(index,1)
@@ -205,47 +210,51 @@ aggregate_Mark:""
  })
 }
     render(){
-        
-    return (<div>     <div>
-           <h1 > student Table</h1>
-          
-                 {this.viewList()}
-           <input type ="text" value={this.state.input} onChange={this.searchText}></input>
-        <button onClick = {this.findText}>Search</button>
-        <button onClick = {this.clearText}>Clear</button>
-           
-        </div>
+    return (
         <div>
-    
-        
-        <label>Row No:</label><br/>
-      <input type="Number" name='selectedindex' onChange={this.onindexChange} placeholder="index" value={this.state.selectedindex}/><br/>
-<label>Id:</label><br/>
-<input type="Number"  name="id" placeholder="Id" onChange={this.onIdChange} value={this.state.id}/><br/>
-<label>First Name:</label><br/>
-      <input type="Text" name="first_Name" onChange={this.onfirstNameChange} placeholder="First Name" value={this.state.first_Name}/><br/>
-      <label>Last Name:</label><br/>
-      <input type="Text" name="last_Name" onChange={this.onlastNameChange} placeholder="Last Name" value={this.state.last_Name} /><br/>
-      <label>Aggregate Mark:</label><br/>
-      <input type="Number" name="aggregate_Mark" onChange={this.onmarkChange} placeholder="Aggregate Mark"  value={this.state.aggregate_Mark}/><br/>
-<button type="button" onClick={()=>{this.addItem()}}>Add</button><br/>
-   <label>Row No:</label><br/>
-      <input type="Number" name='position' onChange={this.onpositionChange} placeholder="index of row to delete" value={this.state.deleteId}/>
-      <button  onClick = {()=>{this.deleteRow(this.state.deleteId)}}>DELETE</button><br/>
-      </div> 
-      <Edit 
-      modal={this.state.modal}
-      toggle={this.toggle}
-      studentData={this.state.selectedStudent}
-      onChange={this.handleChangeInput}
-      saveHandler={this.save}
-      cancel={this.cancel}
-      ></Edit>      
-      </div> 
-    
-    );
-  }
-}
+        <List
+        studentList={this.state.studentList}
+        delete={this.delete}
+        onClickEdit={this.onClickEdit}
+        ></List>
+        <Search
+        input={this.state.input}
+        searchText={this.searchText}  
+findText={this.findText}
+        clearText={this.clearText}
+        ></Search>
+        <Addrow
+        handleChangeInput={this.handleChangeInput}
+onindexChange={this.onindexChange}
+selectedindex={this.state.selectedindex}
+onfirstNameChange={this.onfirstNameChange}
+first_Name={this.state.first_Name}
+onlastNameChange={this.onlastNameChange}
+last_Name={this.state.last_Name}
+onmarkChange={this.onmarkChange}
+aggregate_Mark={this.state.aggregate_Mark}
+addItem={this.addItem}
+></Addrow>
 
-export default Table;
+<Edit
+studentData={this.state.selectedStudent}
+modal={this.state.modal}
+onChange={this.onChange}
+savehandler={this.save}
+cancel={this.cancel}
+
+></Edit>                 
+                 
+<Delete
+onpositionChange={this.onpositionChange}
+deleteId={this.state.deleteId}
+
+handleChangeInput={this.handleChangeInput}
+deleteRow={this.deleteRow}
+></Delete>
+</div>
+      )  }}
+
+
+export default student;
  

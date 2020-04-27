@@ -1,7 +1,9 @@
 import React from 'react';
-import Table from './Table';
+import Student from './Student';
 // import ModalExample from './modal';
- 
+  
+
+
  const Students = [
     { Id:'1', First_Name:'Ann' ,Last_Name:'Mathew',Aggregate_Mark:70},
     { Id:'2', First_Name:'Riya' ,Last_Name:'Eliz',Aggregate_Mark:90},
@@ -15,7 +17,7 @@ const app =()=>{
     return (
         <div >
         
-          <Table lists={Students} />
+          <Student lists={Students} />
 
         </div>
       );

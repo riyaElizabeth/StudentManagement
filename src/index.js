@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Counter from './Containers/Counter/Counter';
 import * as serviceWorker from './serviceWorker';
-import Table from './Containers/Table/Table';
-import Search from './Containers/Table/Search';
+//import Table from './Containers/Student/Student';
+import Table from './Containers/Student/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Home from './Containers/Student/Home'
 ReactDOM.render(
+
+  
   <React.StrictMode>
-    <Counter/>
- 
-   <Search/>
+    <Home/>
+
+  
   </React.StrictMode>,
   document.getElementById('root')
 );
