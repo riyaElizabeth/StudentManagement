@@ -1,12 +1,13 @@
 import React from 'react';
+import Navigation from './nav';
 const Addrow =(props)=>{
 console.log(props)
 const {selectedindex,first_Name,id,handleChangeInput,
-last_Name,aggregate_Mark,addItem}=props
+last_Name,aggregate_Mark,addItem,onChange}=props
         
     return (
     <div>
-        
+        <Navigation/>
         <label>Row No:</label><br/>
       <input type="Number" name='selectedindex' onChange={(e)=>{handleChangeInput(e)}} placeholder="index" value={selectedindex}/><br/>
 <label>Id:</label><br/>
@@ -20,16 +21,7 @@ last_Name,aggregate_Mark,addItem}=props
 <button type="button" onClick={()=>{addItem()}}>Add</button><br/>
 </div>
     )
-      // <Edit 
-      // modal={this.state.modal}
-      // toggle={this.toggle}
-      // studentData={this.state.selectedStudent}
-      // onChange={this.handleChangeInput}
-      // saveHandler={this.save}
-      // cancel={this.cancel}
-      // ></Edit>      
-      // </div> 
-
+   
     
   }
 

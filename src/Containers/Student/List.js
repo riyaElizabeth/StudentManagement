@@ -1,11 +1,16 @@
 
 import  React , {Component} from 'react';
+import Navigation from './nav';
 const List=(props)=>{
 console.log(props)
     const {studentList,onClickEdit}=props
 
-return(
 
+
+
+    
+return(
+<div>
 
 <table  bordered style={{color:"red", border:"2px solid black" }}>
 <thead><tr><th >Id</th>
@@ -22,7 +27,7 @@ return(
                      </tr></tbody>    
  ))}
   </table>
-  
+  </div>
   )
 }
 

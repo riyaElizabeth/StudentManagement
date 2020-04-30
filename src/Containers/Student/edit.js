@@ -1,6 +1,7 @@
 import  React , {Component} from 'react';
-import edit from './edit'
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Navigation from './nav';
 
 const Edit=(props)=>{
 
@@ -9,13 +10,14 @@ const Edit=(props)=>{
  
 console.log(props)
 
-    const {studentData,modal,onChange,savehandler,cancel} = props
+    const {studentData,modal,handleInputChange,savehandler,cancel} = props
  
  
     
     
     return(
-
+      <div>
+ 
 
    
 <Modal isOpen={modal}   className={props.className}>
@@ -23,13 +25,13 @@ console.log(props)
           <ModalBody>
           
 <label>Id:</label><br/>
-<input type="Number"  name="Id" placeholder="Id" onChange={(e)=>{onChange(e)}} value={studentData.Id}/><br/>
+<input type="Number"  name="Id" placeholder="Id" onChange={(e)=>{handleInputChange(e)}} value={studentData.Id}/><br/>
 <label>First Name:</label><br/>
-      <input type="Text" name="First_Name"  onChange={(e)=>{onChange(e)}} placeholder="First Name" value={studentData.First_Name}/><br/>
+      <input type="Text" name="First_Name"  onChange={(e)=>{handleInputChange(e)}} placeholder="First Name" value={studentData.First_Name}/><br/>
       <label>Last Name:</label><br/>
-      <input type="Text" name="Last_Name"  onChange={(e)=>{onChange(e)}} placeholder="Last Name" value={studentData.Last_Name} /><br/>
+      <input type="Text" name="Last_Name"  onChange={(e)=>{handleInputChange(e)}} placeholder="Last Name" value={studentData.Last_Name} /><br/>
       <label>Aggregate Mark:</label><br/>
-      <input type="Number" name="Aggregate_Mark" onChange={(e)=>{onChange(e)}} placeholder="Aggregate Mark"  value={studentData.Aggregate_Mark}/><br/>
+      <input type="Number" name="Aggregate_Mark" onChange={(e)=>{handleInputChange(e)}} placeholder="Aggregate Mark"  value={studentData.Aggregate_Mark}/><br/>
  
           </ModalBody>
           <ModalFooter>
@@ -38,7 +40,7 @@ console.log(props)
            
           </ModalFooter>
         </Modal>
-        
+        </div>
  )}
 
  

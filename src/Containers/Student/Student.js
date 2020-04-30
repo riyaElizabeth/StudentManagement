@@ -6,6 +6,7 @@ import Search from './Search';
 import List from './List';
 import  Addrow from './Addrow';
 import Delete from './delete';
+import  Navigation from './nav';
 
 class student extends Component{
 
@@ -55,11 +56,7 @@ index:i
         })     
     }
     
-    toggle=()=>{
-        this.setState( prevState => ({
-            modal: !prevState.modal
-          }))
-    }
+    
 
     handleChangeInput=(e)=>{
 const {name,value}=e.target
@@ -180,9 +177,9 @@ clearText=()=>{
         input:" "
     })
 }
-onpositionChange=(e)=>{
+onChange=(e)=>{
       this.setState({
-       deleteId: e.target.value
+       name: e.target.value
     })
 }
 
@@ -209,49 +206,45 @@ last_Name:"",
 aggregate_Mark:""
  })
 }
+
+
+ componentWillReceiveProps(newProps) {    
+    console.log('Component WILL RECIEVE PROPS!')
+ }
+ shouldComponentUpdate(newProps, newState) {
+     console.log("should update?")
+    return true;
+ }
+ componentWillUpdate(nextProps, nextState) {
+    console.log('Component WILL UPDATE!');
+ }
+ componentDidUpdate(prevProps, prevState) {
+    console.log('Component DID UPDATE!')
+ }
+ componentWillUnmount() {
+    console.log('Component WILL UNMOUNT!')
+ }
     render(){
     return (
         <div>
+            <Navigation/>
         <List
         studentList={this.state.studentList}
         delete={this.delete}
         onClickEdit={this.onClickEdit}
         ></List>
-        <Search
-        input={this.state.input}
-        searchText={this.searchText}  
-findText={this.findText}
-        clearText={this.clearText}
-        ></Search>
-        <Addrow
-        handleChangeInput={this.handleChangeInput}
-onindexChange={this.onindexChange}
-selectedindex={this.state.selectedindex}
-onfirstNameChange={this.onfirstNameChange}
-first_Name={this.state.first_Name}
-onlastNameChange={this.onlastNameChange}
-last_Name={this.state.last_Name}
-onmarkChange={this.onmarkChange}
-aggregate_Mark={this.state.aggregate_Mark}
-addItem={this.addItem}
-></Addrow>
-
+       
+       
 <Edit
 studentData={this.state.selectedStudent}
 modal={this.state.modal}
-onChange={this.onChange}
+handleChangeInput={this.handleChangeInput}
 savehandler={this.save}
 cancel={this.cancel}
 
 ></Edit>                 
                  
-<Delete
-onpositionChange={this.onpositionChange}
-deleteId={this.state.deleteId}
 
-handleChangeInput={this.handleChangeInput}
-deleteRow={this.deleteRow}
-></Delete>
 </div>
       )  }}
 
