@@ -15,20 +15,25 @@ import Table from './Containers/Student/Table'
 import Addrow from './Containers/Student/Addrow';
 import Search from './Containers/Student/Search';
 import App  from './App'
+import {createStore} from 'redux'
+import reducer from './Store/Reducer'
+import {Provider} from 'react-redux'
+const store = createStore(reducer);
+
 ReactDOM.render(
 
   
-  <React.StrictMode>
-
-    <BrowserRouter>
+  <React.StrictMode><Provider store={store}>
+<Counter/></Provider>
+    {/* <BrowserRouter>
   
   <Route exact path="/"  component ={Home}  />
   <Route path="/Home" component ={Home}/>
   <Route path="/Add" component ={Addrow}/>
   <Route path="/Student" component ={Table}/>
   <Route path="/Search" component ={Search}/>
-</BrowserRouter>
-    
+</BrowserRouter> */}
+   
   
   </React.StrictMode>,
   document.getElementById('root')
