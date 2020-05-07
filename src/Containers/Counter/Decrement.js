@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Decrement = (props)  =>  (
-    <button onClick = {props.decrement } >Decrement </button>
+    <button onClick = {props.onDecrementCounter } >Decrement </button>
 );
 
 export default Decrement

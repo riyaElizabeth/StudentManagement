@@ -19,20 +19,21 @@ import {createStore} from 'redux'
 import reducer from './Store/Reducer'
 import {Provider} from 'react-redux'
 const store = createStore(reducer);
-
+console.log("!!!",store.getState())
 ReactDOM.render(
 
   
-  <React.StrictMode><Provider store={store}>
-<Counter/></Provider>
-    {/* <BrowserRouter>
+  <React.StrictMode>
+    {/* <Provider store={store}>
+<Counter/></Provider> */}
+    <BrowserRouter>
   
   <Route exact path="/"  component ={Home}  />
   <Route path="/Home" component ={Home}/>
   <Route path="/Add" component ={Addrow}/>
   <Route path="/Student" component ={Table}/>
   <Route path="/Search" component ={Search}/>
-</BrowserRouter> */}
+</BrowserRouter>
    
   
   </React.StrictMode>,

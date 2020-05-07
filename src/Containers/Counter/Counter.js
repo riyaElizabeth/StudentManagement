@@ -4,11 +4,10 @@ import Decrement from './Decrement';
 import {connect} from 'react-redux'
  
 class Counter extends Component{
+// state={
+//     counter:0
+// }
 
-state = {
-    counter:""
-
-}
 // decrement=()=> {
 //         this.setState(prevState => ({
 //         count: prevState.count - 1
@@ -25,10 +24,12 @@ state = {
 
 
 render() {
+
+   
     return ( < div className = "App" >
 
-<Decrement decrement={this.props.onIncrementCounter}></Decrement>
-{/* <Increment increment={this.props.onIncrementCounter}></Increment> */}
+<Decrement decrement={this.props.onDecrementCounter}></Decrement>
+<Increment increment={this.props.onInrementCounter}></Increment>
 <p>count:{this.props.ctr}</p> 
  
 
@@ -40,16 +41,18 @@ render() {
 }
 }
 
-const mapStateToProps = state=>{
-    console.log(state)
+// const mapStateToProps = state=>{
+//     console.log("@@@",state)
+//     return{
+// ctr:this.state.co 
+//}
+//}
+const mapDispatchToProps=(dispatch,state)=>{
+    console.log("@@@",state.counter)
     return{
-ctr:state.counter
-}
-}
-const mapDispatchToProps=dispatch=>{
-    return{
-        onIncrementCounter:()=>dispatch(({type:'Increment'}))
+        onIncrementCounter:()=>dispatch(({type:'Increment'})),
+        onDecrementCounter:()=>dispatch(({type:'Decrement'}))
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps) (Counter);
+export default connect(mapDispatchToProps) (Counter);
