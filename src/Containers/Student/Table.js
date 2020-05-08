@@ -16,8 +16,8 @@ const app =()=>{
 
     return (
         <div >
-        
-          <Student lists={Students} />
+        <Student/>
+          {/* <Student lists={Students} /> */}
 
         </div>
       );

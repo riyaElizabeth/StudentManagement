@@ -3,14 +3,19 @@ import Edit from './edit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Students from './Table'
 import Search from './Search';
+
+//import {connect} from 'react-redux'
 import List from './List';
 import  Addrow from './Addrow';
 import Delete from './delete';
+import  {connect} from'react-redux';
 import  Navigation from './nav';
+import { deleteStudent } from '../Redux/Action';
+import studentReducer from '../Redux/studentReducer';
 
 class student extends Component{
 
-    state={  studentList:[],
+    state={ 
             input:'',
             selectedStudent:{
                 id:0,
@@ -40,21 +45,23 @@ Id:''
 selectedId:0,index:undefined
     }
     
-    componentDidMount(){
-        const {lists} = this.props    
-              this.setState({
-            studentList:[...lists]
-        })
+    componentDidMount(props){
+        console.log("__",props)
+     //   const {lists} = this.props  
+        
+           //
+      //  })
+        console.log("||",this.state.studentList)
     }
-    onClickEdit=(student,i)=>{
-        this.setState({
-            studentList:this.props.lists,
-            modal:!this.state.modal,
-      selectedStudent:{...student},
-      selectedId:student.Id,
-index:i
-        })     
-    }
+//     onClickEdit=(student,i)=>{
+//         this.setState({
+//             studentList:this.props.lists,
+//             modal:!this.state.modal,
+//       selectedStudent:{...student},
+//       selectedId:student.Id,
+// index:i
+//         })     
+//     }
     
     
 
@@ -68,23 +75,23 @@ this.setState({
 
     }
   
-    viewList=()=>(<table  bordered style={{color:"red", border:"2px solid black" }}>
-        <thead><tr><th >Id</th>
-        <th>First_Name</th>
-<th>Last_Name</th>
-<th>Aggregate_Mark</th></tr></thead>
-   { this.state.studentList.map((student,i)=>(<tbody><tr key={i} >
-            <td>{student.Id}</td>
-            <td>{student.First_Name}</td>
-            <td>{student.Last_Name}</td>
-            <td>{student.Aggregate_Mark}</td>
-            <td><button  onClick = {()=>{this.delete(i)}}>DELETE</button>
-            <button  onClick = {()=>{this.onClickEdit(student,i)}}>Edit</button></td>
-                             </tr></tbody>    
-         ))}
-          </table>
+//     viewList=()=>(<table  bordered style={{color:"red", border:"2px solid black" }}>
+//         <thead><tr><th >Id</th>
+//         <th>First_Name</th>
+// <th>Last_Name</th>
+// <th>Aggregate_Mark</th></tr></thead>
+//    {studentList.map((student,i)=>(<tbody><tr key={i} >
+//             <td>{student.Id}</td>
+//             <td>{student.First_Name}</td>
+//             <td>{student.Last_Name}</td>
+//             <td>{student.Aggregate_Mark}</td>
+//             <td><button  onClick = {()=>{this.props.delete(i)}}>DELETE</button>
+//             <button  onClick = {()=>{this.onClickEdit(student,i)}}>Edit</button></td>
+//                              </tr></tbody>    
+//          ))}
+//           </table>
           
-          )
+//           )
           save=(studentData)=>
           { 
               const {selectedId,index}=this.state
@@ -120,17 +127,17 @@ this.setState({
             input:searchString
         })
                  }
-       delete=(i)=>{
-           const {studentList}=this.state
+    //    /delete=(i)=>{
+    //        const {studentList}=this.state
          
-                studentList.splice(i,1)
-               this.setState({
-        studentList:studentList,
-        position:""
-        })
+    //             studentList.splice(i,1)
+    //            this.setState({
+    //     studentList:studentList,
+    //     position:""
+    //     })
    
    
-     }
+    // }
    
         onindexChange=(e)=>{
                        this.setState({
@@ -158,25 +165,25 @@ newmark: e.target.value
 })
 }
 
-    findText=()=>{
-            const {studentList}=this.state
+    // findText=()=>{
+    //         const {studentList}=this.state
         
-     const list=  studentList.filter((item)=>{
-              return item.First_Name.toLowerCase().concat(item.Last_Name.toLowerCase()).includes(this.state.input.toLowerCase())
-            })
-            console.log(list)
-               this.setState({
-          studentList:list
-    })
-  }
-clearText=()=>{
-    console.log(this.props)
-    const {lists}=this.props
-    this.setState({
-        studentList:lists,
-        input:" "
-    })
-}
+    //  const list=  studentList.filter((item)=>{
+    //           return item.First_Name.toLowerCase().concat(item.Last_Name.toLowerCase()).includes(this.state.input.toLowerCase())
+    //         })
+    //         console.log(list)
+    //            this.setState({
+    //       studentList:list
+    // })
+ // }
+// clearText=()=>{
+//     console.log(this.props)
+//    // const {lists}=this.props
+//     this.setState({
+//         //studentList:lists,
+//         input:" "
+//     })
+//}
 onChange=(e)=>{
       this.setState({
        name: e.target.value
@@ -225,29 +232,41 @@ aggregate_Mark:""
     console.log('Component WILL UNMOUNT!')
  }
     render(){
+        console.log("==",this.props.studentout.studentList)
     return (
+       
         <div>
+            
             <Navigation/>
         <List
-        studentList={this.state.studentList}
-        delete={this.delete}
-        onClickEdit={this.onClickEdit}
-        ></List>
+        studentList={this.props.studentout}
+      //  delete={this.delete}
+       // onClickEdit={this.onClickEdit}
+        ></List> */}
+        */}
        
-       
-<Edit
-studentData={this.state.selectedStudent}
-modal={this.state.modal}
-handleChangeInput={this.handleChangeInput}
-savehandler={this.save}
-cancel={this.cancel}
 
-></Edit>                 
+
+<Edit/>                  */}
                  
 
 </div>
       )  }}
+// const mapDispatchToProps=(dispatch)=>{
+//     console.log("LLLL")
+//     return{
+//         delete:(i)=>dispatch(deleteStudent(i))
+//     }
+// }
+
+const mapStateToProps=state=>{
+    console.log(">>>>>>",state)
+    return{
+        studentout:state.studentList
+    }
+    
+}
 
 
-export default student;
+export default connect(mapStateToProps)(student);
  

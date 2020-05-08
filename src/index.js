@@ -16,16 +16,14 @@ import Addrow from './Containers/Student/Addrow';
 import Search from './Containers/Student/Search';
 import App  from './App'
 import {createStore} from 'redux'
-import reducer from './Store/Reducer'
+//import reducer from './Store/Reducer'
 import {Provider} from 'react-redux'
-const store = createStore(reducer);
-console.log("!!!",store.getState())
+import store from './Containers/Redux/Store';
 ReactDOM.render(
 
   
   <React.StrictMode>
-    {/* <Provider store={store}>
-<Counter/></Provider> */}
+    <Provider store={store}>
     <BrowserRouter>
   
   <Route exact path="/"  component ={Home}  />
@@ -34,7 +32,7 @@ ReactDOM.render(
   <Route path="/Student" component ={Table}/>
   <Route path="/Search" component ={Search}/>
 </BrowserRouter>
-   
+   </Provider>
   
   </React.StrictMode>,
   document.getElementById('root')

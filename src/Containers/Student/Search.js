@@ -4,7 +4,7 @@ import Navigation from './nav';
 
 
 const Search =(props)=>{
-
+ 
 
 const {input,searchText,findText,clearText}=props
  

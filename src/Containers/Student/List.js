@@ -1,11 +1,13 @@
 
+import {connect} from 'react-redux'
 import  React , {Component} from 'react';
 import Navigation from './nav';
+import { deleteStudent,editStudent } from '../Redux/Action';
 const List=(props)=>{
-console.log(props)
-    const {studentList,onClickEdit}=props
+console.log("///")
+  //const {studentList,onClickEdit}=props
 
-
+//console.log("++",studentList)
 
 
     
@@ -17,18 +19,30 @@ return(
 <th>First_Name</th>
 <th>Last_Name</th>
 <th>Aggregate_Mark</th></tr></thead>
-{studentList.map((student,i)=>(<tbody><tr key={i} >
+{props.studentList.map((student,i)=>(<tbody><tr key={i} >
     <td>{student.Id}</td>
     <td>{student.First_Name}</td>
     <td>{student.Last_Name}</td>
     <td>{student.Aggregate_Mark}</td>
-    <td><button  onClick = {()=>{props.delete(i)}}>DELETE</button>
-    <button  onClick = {()=>{onClickEdit(student,i)}}>Edit</button></td>
+<td><button  onClick = {()=>{props.delete(student.Id)}}>DELETE</button>
+    <button onClick = {()=>{props.edit(student)}} >Edit</button></td>
                      </tr></tbody>    
  ))}
   </table>
   </div>
   )
 }
-
-export default List;
+// const mapStateToProps=state=>{
+//     // console.log("%%%",state)
+//     // return{
+//     //     classmates:state.classmates
+//     // }
+// }
+const mapDispatchToProps=(dispatch)=>{
+    console.log("LLLL")
+    return{
+        delete:(i)=>dispatch(deleteStudent(i)),
+        edit:(i)=>dispatch(editStudent(i))
+    }
+}
+export default connect(null,mapDispatchToProps)(List);
