@@ -1,4 +1,4 @@
-import {DELETE,EDIT} from'./ActionType';
+import {DELETE,EDIT,CHANGE} from'./ActionType';
 export const deleteStudent=(params)=>{
 return{
     type:DELETE,
@@ -8,6 +8,12 @@ return{
 export const editStudent=(params)=>{
     return{
         type:EDIT,
+        params
+    }
+}
+export const Change =(params)=>{
+    return{
+        type:CHANGE,
         params
     }
 }

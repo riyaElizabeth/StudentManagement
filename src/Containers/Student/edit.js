@@ -3,7 +3,7 @@ import  React , {Component} from 'react';
 import edit from './edit'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from 'react-redux';
-
+import { deleteStudent,Change } from '../Redux/Action';
 const Edit=(props)=>{
 
 
@@ -13,9 +13,12 @@ console.log(props)
 
     
  const onChange=(e)=>{
-   const {name,value} = e.target
-   const {studentData}=props
-props.studentData[name]=value
+  const {name,value}=e.target
+const {studentData}=props
+studentData[name]=value
+console.log(props)
+props.Change(studentData)
+
 console.log("***********************************",name)
  }
  
@@ -58,5 +61,11 @@ const mapStateToProps=state=>{
     }
     
 }
+const mapDispatchToProps=(dispach)=>{
+  return{
+      Change:(selectedStudent)=>dispach(Change(selectedStudent))
+  }
+}
 
-export default connect(mapStateToProps)(Edit)
+
+export default connect(mapStateToProps,mapDispatchToProps)(Edit)

@@ -1,4 +1,4 @@
-import{DELETE,EDIT} from './ActionType'
+import{DELETE,EDIT, CHANGE} from './ActionType'
 
 const initialState ={
     studentList: [
@@ -34,6 +34,14 @@ return{
  
          }     
 //     }
+        }
+
+        case CHANGE:{
+            console.log("mmm",action.params)
+            return{
+                ...state,
+                selectedStudent:action.params
+            }
         }
     default:return state
 }

@@ -10,7 +10,7 @@ import  Addrow from './Addrow';
 import Delete from './delete';
 import  {connect} from'react-redux';
 import  Navigation from './nav';
-import { deleteStudent } from '../Redux/Action';
+import { deleteStudent,Change } from '../Redux/Action';
 import studentReducer from '../Redux/studentReducer';
 
 class student extends Component{
@@ -69,11 +69,10 @@ selectedId:0,index:undefined
 const {name,value}=e.target
 const {selectedStudent}=this.state
 selectedStudent[name]=value
-this.setState({
-    selectedStudent
-})
+this.props.Change(selectedStudent)
+}
 
-    }
+    
   
 //     viewList=()=>(<table  bordered style={{color:"red", border:"2px solid black" }}>
 //         <thead><tr><th >Id</th>
@@ -214,7 +213,6 @@ aggregate_Mark:""
  })
 }
 
-
  componentWillReceiveProps(newProps) {    
     console.log('Component WILL RECIEVE PROPS!')
  }
@@ -266,7 +264,6 @@ const mapStateToProps=state=>{
     }
     
 }
-
 
 export default connect(mapStateToProps)(student);
  
