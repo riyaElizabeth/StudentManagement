@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import  React , {Component} from 'react';
 import Navigation from './nav';
 import { deleteStudent,editStudent } from '../Redux/Action';
+import Student from './Student';
 const List=(props)=>{
 console.log("///")
   //const {studentList,onClickEdit}=props
@@ -25,7 +26,7 @@ return(
     <td>{student.Last_Name}</td>
     <td>{student.Aggregate_Mark}</td>
 <td><button  onClick = {()=>{props.delete(student.Id)}}>DELETE</button>
-    <button onClick = {()=>{props.edit(student)}} >Edit</button></td>
+    <button onClick = {()=>{props.edit({i,student})}} >Edit</button></td>
                      </tr></tbody>    
  ))}
   </table>
@@ -42,7 +43,7 @@ const mapDispatchToProps=(dispatch)=>{
     console.log("LLLL")
     return{
         delete:(i)=>dispatch(deleteStudent(i)),
-        edit:(i)=>dispatch(editStudent(i))
+        edit:(i)=>dispatch(editStudent({i}))
     }
 }
 export default connect(null,mapDispatchToProps)(List);

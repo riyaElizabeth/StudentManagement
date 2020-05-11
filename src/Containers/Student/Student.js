@@ -230,7 +230,7 @@ aggregate_Mark:""
     console.log('Component WILL UNMOUNT!')
  }
     render(){
-        console.log("==",this.props.studentout.studentList)
+    //    console.log("==",this.props.studentout.studentList)
     return (
        
         <div>
