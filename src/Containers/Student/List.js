@@ -9,23 +9,33 @@ import Addrow from './Addrow';
 class  List extends Component{
     state={
         selectedStudent:{
-          id:0,
-          first_Name:'',
-          last_Name:'',
-          aggregate_Mark:''
+          Id:0,
+          First_Name:'',
+          Last_Name:'',
+          Aggregate_Mark:''
       },
+      modal:false
       }
- 
-onClickEdit=(student,i)=>{
+     
+      handleChangeInput=(e)=>{
+          console.log("MARIYO",this.state.selectedStudent)
+        const {name,value}=e.target
+        const {selectedStudent}=this.state
+        selectedStudent[name]=value
+        this.setState({
+            selectedStudent:this.state.selectedStudent
+        })
+        
+            }
+  onClickEdit=(student,i)=>{
     this.setState({
-       // studentList:this.props.lists,
         modal:!this.state.modal,
   selectedStudent:{...student},
   selectedId:student.Id,
 index:i
-    })
-    this.props.Edit(student)     
+    })     
 }
+
     
     render(){
 return(
@@ -43,12 +53,14 @@ return(
     <td>{student.Last_Name}</td>
     <td>{student.Aggregate_Mark}</td>
 <td><button  onClick = {()=>{this.props.delete(student.Id)}}>DELETE</button>
-    <button onClick = {()=>{this.onClickEdit({i,student})}} >Edit</button></td>
+    <button onClick = {()=>{this.onClickEdit(student,i)}} >Edit</button></td>
                      </tr></tbody>    
  ))}
   </table>
   <Edit
-  selectedStudent={this.state.selectedStudent}
+  selected={this.state.selectedStudent}
+  handleChangeInput={this.handleChangeInput}
+  modal={this.state.modal}
   />
   
   </div>
