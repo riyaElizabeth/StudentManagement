@@ -9,14 +9,17 @@ handleChangeInput=(e)=>{
   const {name,value}=e.target
   const {selectedStudent}=this.props
   selectedStudent[name]=value
-  this.props.Change(selectedStudent)
-  
-console.log("**",selectedStudent)
+  console.log("**",selectedStudent)
 }
+navigate=(path)=>{
+  this.props.history.push(path)
+   }
 render(){
+  console.log("_____",this.props.studentList)
     return (
     <div>
-        <Navigation/>
+        <Navigation
+          navigate={this.navigate}/>
         <label>Row No:</label><br/>
       <input type="Number" name='index' onChange={(e)=>{this.handleChangeInput(e)}} placeholder="index" /><br/>
 <label>Id:</label><br/>
@@ -27,25 +30,30 @@ render(){
       <input type="Text" name="Last_Name" onChange={(e)=>{this.handleChangeInput(e)}} placeholder="Last Name" /><br/>
       <label>Aggregate Mark:</label><br/>
       <input type="Number" name="Aggregate_Mark" onChange={(e)=>{this.handleChangeInput(e)}} placeholder="Aggregate Mark"  /><br/>
-<button type="button" onClick={()=>{this.props.addItem()}}>Add</button><br/>
+<button type="button" onClick={()=>{this.props.addItem(this.props.selectedStudent)}}>Add</button><br/>
 </div>
     )
    
 }
   }
   const mapStateToProps=state=>{
-    console.log(">>>>>>",state.selectedStudent)
-    return{
-        studentout:state.studentList,
-        modal:state.modal,
+    console.log("IN ADDDROW",state)
+return{    
+        studentList:state.students,
+       // modal:state.modal,
         selectedStudent:state.selectedStudent,
         selectedId:state.selectedId
+
+
+
     }
     
 }
 const mapDispatchToProps=(dispach)=>{
-  return{
-      addItem:(newStudent)=>dispach(Add(newStudent)),
+  console.log("%%")
+  
+   return{
+      addItem:(selectedStudent)=>dispach(Add(selectedStudent)),
       Change:(newStudent)=>dispach(Change(newStudent)),
   }
 }

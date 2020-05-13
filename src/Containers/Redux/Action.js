@@ -8,14 +8,14 @@ return{
 }
 export const editStudent=(params)=>{
     return{
-        type:EDIT,
+        type:EDIT_STUDENT,
         params
     }
 }
 
 export const editNew=(params)=>{
     return{
-        type:EDIT_STUDENT,
+        type:EDIT,
         params
     }
 }
@@ -30,5 +30,6 @@ export const Add=(params)=>{
     return{
         type:ADD,
         params
+        
     }
 }

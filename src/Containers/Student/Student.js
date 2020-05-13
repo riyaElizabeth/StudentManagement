@@ -1,19 +1,13 @@
 import  React , {Component} from 'react';
-import Edit from './edit';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Students from './Table'
-import Search from './Search';
 
+import { deleteStudent,editStudent } from '../Redux/Action';
 //import {connect} from 'react-redux'
 import List from './List';
-import  Addrow from './Addrow';
-import Delete from './delete';
+
 import  {connect} from'react-redux';
 import  Navigation from './nav';
-import { deleteStudent,Change } from '../Redux/Action';
-import studentReducer from '../Redux/studentReducer';
 
-class student extends Component{
+class Student extends Component{
 
     state={ 
             input:'',
@@ -45,23 +39,7 @@ Id:''
 selectedId:0,index:undefined
     }
     
-    componentDidMount(props){
-        console.log("__",props)
-     //   const {lists} = this.props  
-        
-           //
-      //  })
-        console.log("||",this.state.studentList)
-    }
-//     onClickEdit=(student,i)=>{
-//         this.setState({
-//             studentList:this.props.lists,
-//             modal:!this.state.modal,
-//       selectedStudent:{...student},
-//       selectedId:student.Id,
-// index:i
-//         })     
-//     }
+    
     
     
 
@@ -79,7 +57,7 @@ this.props.Change(selectedStudent)
 //         <th>First_Name</th>
 // <th>Last_Name</th>
 // <th>Aggregate_Mark</th></tr></thead>
-//    {studentList.map((student,i)=>(<tbody><tr key={i} >
+//    {this.props.studentList.map((student,i)=>(<tbody><tr key={i} >
 //             <td>{student.Id}</td>
 //             <td>{student.First_Name}</td>
 //             <td>{student.Last_Name}</td>
@@ -138,31 +116,7 @@ this.props.Change(selectedStudent)
    
     // }
    
-        onindexChange=(e)=>{
-                       this.setState({
-                newindex: e.target.value
-                })
-        }
-        onIdChange=(e)=>{
-            this.setState({
-     newId: e.target.value
-     })
-}
-        onfirstNameChange=(e)=>{
-            this.setState({ 
-     newFirstName: e.target.value
-     })
-}
-onlastNameChange=(e)=>{
-    this.setState({
-newlastName: e.target.value
-})
-}
-onmarkChange=(e)=>{
-    this.setState({
-newmark: e.target.value
-})
-}
+        
 
     // findText=()=>{
     //         const {studentList}=this.state
@@ -183,11 +137,6 @@ newmark: e.target.value
 //         input:" "
 //     })
 //}
-onChange=(e)=>{
-      this.setState({
-       name: e.target.value
-    })
-}
 
 deleteRow=(row)=>{
    console.log(row)
@@ -220,50 +169,55 @@ aggregate_Mark:""
      console.log("should update?")
     return true;
  }
- componentWillUpdate(nextProps, nextState) {
-    console.log('Component WILL UPDATE!');
- }
+//  componentWillUpdate(nextProps, nextState) {
+//     {this.viewList()}
+//  }
  componentDidUpdate(prevProps, prevState) {
     console.log('Component DID UPDATE!')
  }
  componentWillUnmount() {
     console.log('Component WILL UNMOUNT!')
  }
+ navigate=(path)=>{
+this.props.history.push(path)
+ }
     render(){
-    //    console.log("==",this.props.studentout.studentList)
+      console.log("==",this.props)
     return (
        
-        <div>
-            
-            <Navigation/>
+        <div>            <Navigation
+            navigate={this.navigate}
+            />
         <List
-        studentList={this.props.studentout}
-      //  delete={this.delete}
-       // onClickEdit={this.onClickEdit}
-        ></List> */}
-        */}
+    studentout={this.props.studentout}
+       delete={this.props.delete}
+       Edit={this.props.edit}
+        ></List> 
+        
        
 
 
-<Edit/>                  */}
+                
                  
 
 </div>
       )  }}
-// const mapDispatchToProps=(dispatch)=>{
-//     console.log("LLLL")
-//     return{
-//         delete:(i)=>dispatch(deleteStudent(i))
-//     }
-// }
+
 
 const mapStateToProps=state=>{
     console.log(">>>>>>",state)
     return{
-        studentout:state.studentList
+        studentout:state.students
     }
     
 }
 
-export default connect(mapStateToProps)(student);
+const mapDispatchToProps=(dispatch)=>{
+   console.log("LLLL")
+   return{
+       delete:(i)=>dispatch(deleteStudent(i)),
+       edit:(i)=>dispatch(editStudent({i}))
+   }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Student);
  

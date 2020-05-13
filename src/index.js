@@ -10,13 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter , Route} from 'react-router-dom'
 //import {Nav,Link} from 'reactstrap'
 import Home from './Containers/Student/Home'
-import student from './Containers/Student/Student';
-import Table from './Containers/Student/Table'
+import Student from './Containers/Student/Student';
+
 import Addrow from './Containers/Student/Addrow';
 import Search from './Containers/Student/Search';
-import App  from './App'
-import {createStore} from 'redux'
-//import reducer from './Store/Reducer'
+
 import {Provider} from 'react-redux'
 import store from './Containers/Redux/Store';
 ReactDOM.render(
@@ -29,7 +27,7 @@ ReactDOM.render(
   <Route exact path="/"  component ={Home}  />
   <Route path="/Home" component ={Home}/>
   <Route path="/Add" component ={Addrow}/>
-  <Route path="/Student" component ={Table}/>
+  <Route path="/Student" component ={Student}/>
   <Route path="/Search" component ={Search}/>
 </BrowserRouter>
    </Provider>

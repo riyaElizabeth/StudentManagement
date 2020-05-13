@@ -8,7 +8,12 @@ import { render } from '@testing-library/react';
 class Edit extends Component{
 
 state={
- 
+  selectedStudent:{
+    id:0,
+    first_Name:'',
+    last_Name:'',
+    aggregate_Mark:''
+},
 }
 
  
@@ -16,15 +21,15 @@ state={
 
     
 handleChangeInput=(e)=>{
+  console.log("***",e)
   const {name,value}=e.target
   const {selectedStudent}=this.props
   selectedStudent[name]=value
-  this.props.Change(selectedStudent)
-  
+
 console.log("**",selectedStudent)
 }
   render(){
-    
+    console.log("PROPS IN MODAL",this.props)
     return(
 
 
@@ -34,7 +39,7 @@ console.log("**",selectedStudent)
           <ModalBody>
           
 <label>Id:</label><br/>
-<input type="Number"  name="Id"  onChange={(e)=>{this.handleChangeInput(e)}} placeholder="Id"  /><br/>
+<input type="Number"  name="Id"  onChange={(e)=>{this.handleChangeInput(e)}} value={this.props.selectedStudent.Id} placeholder="Id"  /><br/>
 <label>First Name:</label><br/>
       <input type="Text" name="First_Name"  onChange={(e)=>{this.handleChangeInput(e)}}  placeholder="First Name" /><br/>
       <label>Last Name:</label><br/>
@@ -44,16 +49,16 @@ console.log("**",selectedStudent)
   */}
           </ModalBody>
           <ModalFooter>
-             <Button color="primary" onClick={()=>{this.props.Save()}}>Save</Button>{' '}
+             <Button color="primary" onClick={()=>{this.props.Save(this.props.selectedStudent)}}>Save</Button>{' '}
             {/* <Button color="secondary" onClick={()=>{cancel()}}>Cancel</Button>  */}
            
           </ModalFooter>
         </Modal>
     )}}
-const mapStateToProps=state=>{
-    console.log(">>>>>>",state.selectedStudent)
+const mapStateToProps=(state)=>{
+    console.log("STATE IN MODAL",state)
     return{
-        studentout:state.studentList,
+        studentout:state.students,
         modal:state.modal,
         selectedStudent:state.selectedStudent,
         selectedId:state.selectedId
@@ -65,8 +70,8 @@ const mapStateToProps=state=>{
 }
 const mapDispatchToProps=(dispach)=>{
   return{
-      Change:(newStudent)=>dispach(Change(newStudent)),
-      Save:()=>dispach(editNew())
+     
+      Save:(newStudent)=>dispach(editNew(newStudent))
   }
 }
 

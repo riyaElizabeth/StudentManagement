@@ -1,25 +1,25 @@
 import React from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 
-const Navigation = () => {
+const Navigation = (props) => {
   return (
     <div>
     
       <Nav>
         <NavItem>
-          <NavLink exact href="/"></NavLink>
+          <NavLink exact onClick={()=>{props.navigate('/')}}></NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/Home">Home</NavLink>
+          <NavLink  onClick={()=>{props.navigate('/Home')}}>Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/Student">Student</NavLink>
+          <NavLink  onClick={()=>{props.navigate('/Student')}}>Student</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink  href="/Add">Add</NavLink>
+          <NavLink   onClick={()=>{props.navigate('/Add')}}>Add</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink  href="/Search">Search</NavLink>
+          <NavLink   onClick={()=>{props.navigate('/Search')}}>Search</NavLink>
         </NavItem>
       </Nav>
           </div>
