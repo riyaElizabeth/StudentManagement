@@ -34,31 +34,13 @@ console.log(props)
   */}
           </ModalBody>
           <ModalFooter>
-             <Button color="primary" onClick={()=>{this.props.Save(this.props.selectedStudent)}}>Save</Button>{' '}
+             <Button color="primary" onClick={()=>{props.Save(props.selectedStudent)}}>Save</Button>{' '}
             {/* <Button color="secondary" onClick={()=>{cancel()}}>Cancel</Button>  */}
            
           </ModalFooter>
         </Modal>
     )}
-const mapStateToProps=(state)=>{
-    console.log("STATE IN MODAL",state)
-    return{
-        studentout:state.students,
-     //   modal:state.modal,
-       // selectedStudent:state.selectedStudent,
-        selectedId:state.selectedId
 
 
 
-    }
-    
-}
-const mapDispatchToProps=(dispach)=>{
-  return{
-     
-      Save:(newStudent)=>dispach(editNew(newStudent))
-  }
-}
-
-
-export default connect(mapStateToProps,mapDispatchToProps)(Edit)
+export default Edit

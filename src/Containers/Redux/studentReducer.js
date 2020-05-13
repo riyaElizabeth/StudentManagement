@@ -15,10 +15,11 @@ const initialState ={
           First_Name:'',
           Last_Name:'',
           Aggregate_Mark:'',
-          Index:0
+          selectedId:undefined,
+          index:undefined,
+        
         },
-    selectedId:0,
-    index:0,
+  
     newStudent:{
         Id:'',
         FirstName:'',
@@ -76,7 +77,7 @@ return{
        selectedStudent.First_Name=action.params.First_Name
        selectedStudent.Last_Name=action.params.Last_Name
        selectedStudent.Aggregate_Mark=action.params.Aggregate_Mark
-   selectedStudent.Index=action.params.Index
+
           console.log("OOO",state.selectedStudent)
           return{
               
@@ -89,17 +90,27 @@ return{
         
 
         case EDIT:{
-            console.log("mmm",state.newStudent)
+            const {selectedId,selectedStudent,index}=state
+            console.log("iii",action.params)
+            console.log("ddd",state.selectedStudent)
+       selectedStudent.Id=action.params.Id
+       selectedStudent.First_Name=action.params.First_Name
+       selectedStudent.Last_Name=action.params.Last_Name
+       selectedStudent.Aggregate_Mark=action.params.Aggregate_Mark
+       selectedStudent.index=action.params.index
+     selectedStudent.selectedId=action.params.selectedId
+            console.log("mmm",state.selectedStudent)
             //state.newStudent.Id=action.params.Id
         
         
             
-            const {selectedId,students,selectedStudent,index}=state
-        const studentList =[...students]
-                const existingId = studentList.findIndex((element)=>element.Id===selectedStudent.Id)
-                 if((existingId<0)||selectedId===selectedStudent.Id){
-              console.log("jj",existingId)
-                   studentList.splice(index,1,selectedStudent)
+           
+        const studentList =[...state.students]
+                const existingId = studentList.findIndex((element)=>element.Id=== selectedStudent.selectedId)
+                console.log("jj",existingId)
+                 if((existingId>0)|| selectedStudent.selectedId===selectedStudent.Id){
+            
+                   studentList.splice( selectedStudent.index,1,selectedStudent)
                       console.log("KK",studentList)
                                        return{
                                            ...state,

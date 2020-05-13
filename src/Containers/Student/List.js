@@ -1,10 +1,14 @@
 
-import {connect} from 'react-redux'
+
 import  React , {Component} from 'react';
 import Navigation from './nav';
-import { deleteStudent,editStudent } from '../Redux/Action';
+
 import Edit from './edit';
 import Delete from './delete';
+import { connect } from 'react-redux';
+import { deleteStudent,editStudent,editNew, Change } from '../Redux/Action';
+
+
 import Addrow from './Addrow';
 class  List extends Component{
     state={
@@ -12,28 +16,43 @@ class  List extends Component{
           Id:0,
           First_Name:'',
           Last_Name:'',
-          Aggregate_Mark:''
+          Aggregate_Mark:'',
+          
       },
+      index:'',
       modal:false
       }
      
       handleChangeInput=(e)=>{
-          console.log("MARIYO",this.state.selectedStudent)
+          console.log("INHANDLE",this.state.selectedStudent)
         const {name,value}=e.target
         const {selectedStudent}=this.state
-        selectedStudent[name]=value
+        this.state.selectedStudent[name]=value
+        console.log("INnnnnHANDLE",this.state.selectedStudent)
         this.setState({
-            selectedStudent:this.state.selectedStudent
+
+            selectedStudent:{...selectedStudent}
         })
-        
+        console.log("CHANGE AAYo",this.state.selectedStudent)
             }
+          
   onClickEdit=(student,i)=>{
+      console.log("OOOOOO",this.props)
+   const selectedId=student.Id
+   const index=i
     this.setState({
-        modal:!this.state.modal,
-  selectedStudent:{...student},
-  selectedId:student.Id,
-index:i
+     modal:!this.state.modal,
+  selectedStudent:{...student,selectedId,index},
+ 
+  
     })     
+}
+
+Saving=()=>{
+
+this.props.Save(this.state.selectedStudent,)
+this.setState({
+    modal:!this.state.modal})
 }
 
     
@@ -61,6 +80,7 @@ return(
   selected={this.state.selectedStudent}
   handleChangeInput={this.handleChangeInput}
   modal={this.state.modal}
+  Save={this.Saving}
   />
   
   </div>
@@ -68,5 +88,24 @@ return(
   )
   
 }}
+const mapStateToProps=(state)=>{
+    console.log("STATE IN MODAL",state)
+    return{
+        studentout:state.students,
+       modal:state.modal,
+     index:state.Index,
+        selectedId:state.selectedId
 
-export default List;
+
+
+    }
+    
+}
+const mapDispatchToProps=(dispach)=>{
+  return{
+     
+      Save:(newStudent,id)=>dispach(editNew(newStudent,id))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(List);
