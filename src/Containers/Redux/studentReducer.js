@@ -1,184 +1,146 @@
-import{DELETE,EDIT, CHANGE, EDIT_STUDENT, ADD} from './ActionType'
-
+import{DELETE,EDIT, CHANGE, EDIT_STUDENT, ADD, FIND_STUDENT, CLEAR_TEXT, CANCEL} from './ActionType'
+const student= [
+    { Id:'1', First_Name:'Ann' ,Last_Name:'Mathew',Aggregate_Mark:70},
+    { Id:'2', First_Name:'Riya' ,Last_Name:'Eliz',Aggregate_Mark:90},
+    { Id:'3', First_Name:'Rehan' ,Last_Name:'Zavi',Aggregate_Mark:80},
+    { Id:'4', First_Name:'Sera' ,Last_Name:'Thomas',Aggregate_Mark:50},
+    { Id:'5', First_Name:'Aleena' ,Last_Name:'Jacob',Aggregate_Mark:87}
+  
+]
 const initialState ={
-    students: [
-        { Id:'1', First_Name:'Ann' ,Last_Name:'Mathew',Aggregate_Mark:70},
-        { Id:'2', First_Name:'Riya' ,Last_Name:'Eliz',Aggregate_Mark:90},
-        { Id:'3', First_Name:'Rehan' ,Last_Name:'Zavi',Aggregate_Mark:80},
-        { Id:'4', First_Name:'Sera' ,Last_Name:'Thomas',Aggregate_Mark:50},
-        { Id:'5', First_Name:'Aleena' ,Last_Name:'Jacob',Aggregate_Mark:87}
-      
-    ],
+   students:student,
         modal:false,
     selectedStudent:{
-        Id:0,
+        Id:'',
           First_Name:'',
           Last_Name:'',
           Aggregate_Mark:'',
-          selectedId:undefined,
-          index:undefined,
-        
-        },
-  
+               },
+        selectedId:undefined,
+        index:undefined,
+        input:'',
     newStudent:{
         Id:'',
         FirstName:'',
         Last_Name:'',
         Aggregate_Mark:''
-    }
+    },
+   filteredList:student,
+   show:false
 }
-
 
 const studentReducer=(state=initialState,action)=>{
+    console.log("vannu")
 switch(action.type){
     case DELETE:{
-        console.log("@@@@@@@",state.students)
-        const {students}=state
+                const {students}=state
     const   studentList=[...students]
-    console.log("delete ne munpe",state.students)
-    console.log("copy of std",studentList)
-        console.log(action.params)
         const list= studentList.filter(item=>item.Id!==action.params)
-        console.log("delete chythu",list)
-return{  
+       return{  
           ...state, 
-       
-       students:[...list]
+              students:[...list],
+           filteredList:[...students]
 }
     }
 
-    case EDIT_STUDENT:{
-        console.log("uuu",action.params)
-        const {selectedStudent}=state
-        selectedStudent.Id=action.params.i.student.Id
-        selectedStudent.
-            First_Name=action.params.i.student.First_Name
-            selectedStudent.
-            Last_Name=action.params.i.student.Last_Name
-            selectedStudent.
-            Aggregate_Mark=action.params.i.student.Aggregate_Mark
-        return{
-            ...state,
-       //studentList:this.props.lists,
-       modal:!state.modal,
-     // selectedStudent:action.params,
-       selectedId:action.params.i.student.Id,
-       index:action.params.i.i,
- selectedStudent:state.selectedStudent
-
-         }     
-//     }
-        }
-        case CHANGE:{
-            const {selectedId,selectedStudent,index}=state
-            console.log("iii",action.params)
-            console.log("ddd",state.selectedStudent)
-       selectedStudent.Id=action.params.Id
-       selectedStudent.First_Name=action.params.First_Name
-       selectedStudent.Last_Name=action.params.Last_Name
-       selectedStudent.Aggregate_Mark=action.params.Aggregate_Mark
-
-          console.log("OOO",state.selectedStudent)
-          return{
-              
-            //modal:true,
-            ...state,
-         
-              selectedStudent:state.selectedStudent
-                
-    }    }
-        
-
         case EDIT:{
-            const {selectedId,selectedStudent,index}=state
-            console.log("iii",action.params)
-            console.log("ddd",state.selectedStudent)
-       selectedStudent.Id=action.params.Id
-       selectedStudent.First_Name=action.params.First_Name
-       selectedStudent.Last_Name=action.params.Last_Name
-       selectedStudent.Aggregate_Mark=action.params.Aggregate_Mark
-       selectedStudent.index=action.params.index
-     selectedStudent.selectedId=action.params.selectedId
-            console.log("mmm",state.selectedStudent)
-            //state.newStudent.Id=action.params.Id
-        
-        
-            
-           
+            const {selectedId,newStudent,selectedStudent,index}=state
+                newStudent.Id=action.params.Id
+       newStudent.First_Name=action.params.First_Name
+       newStudent.Last_Name=action.params.Last_Name
+       newStudent.Aggregate_Mark=action.params.Aggregate_Mark     
         const studentList =[...state.students]
-                const existingId = studentList.findIndex((element)=>element.Id=== selectedStudent.selectedId)
-                console.log("jj",existingId)
-                 if((existingId>0)|| selectedStudent.selectedId===selectedStudent.Id){
-            
-                   studentList.splice( selectedStudent.index,1,selectedStudent)
-                      console.log("KK",studentList)
+                const existingId = studentList.findIndex((element)=>element.Id=== newStudent.Id)
+                 if((existingId<0)|| newStudent.Id==action.params.selectedId){
+                           studentList.splice( action.params.index,1,newStudent)
                                        return{
                                            ...state,
                                 students:[...studentList],
-                                modal:!state.modal
-                                           
+                                modal:!state.modal,
+                                newStudent:{
+                                    Id:'',
+                                    FirstName:'',
+                                    Last_Name:'',
+                                    Aggregate_Mark:''
+                                },
+                                filteredList:[...state.students]
                        }}
                        else{
-                           console.log("ID already existing")
-                    return{
+                        console.log("ID already existing")
+       
+                                              return{
                         ...state,
                              students:state.students,
-                             modal:!state.modal
-                                       
+                             modal:!state.modal,
+                             filteredList:[...state.students],
+          show:!state.show
                        }
                     }
                 
             }
         case ADD:{
-            const {selectedId,newStudent,index}=state
+const {selectedId,newStudent}=state
             console.log("iii",action.params)
             console.log("ddd",state.selectedStudent)
        newStudent.Id=action.params.Id
        newStudent.First_Name=action.params.First_Name
        newStudent.Last_Name=action.params.Last_Name
        newStudent.Aggregate_Mark=action.params.Aggregate_Mark
-       newStudent.Index=action.params.Index
-          console.log("OOO",state.selectedStudent)
-            const  List=[...state.students]
-            console.log("QQ",List)
-            List.splice(0,0,state.newStudent)
+        state.index=action.params.index
+        const  List=[...state.students]
+
+        const existingId = List.findIndex((element)=>element.Id=== newStudent.Id)
+        if((existingId<0))
+
+{
+        //   console.log("OOO",state.selectedStudent)
+           
+            console.log("QQ",state.index)
+            List.splice( state.index,0,state.newStudent)
             console.log("AA",List)
             return{
                 ...state,
 students:[...List],
-                }
-// studentList:[...state.studentList],
-//                 modal:!state.modal
-//                             //  studentList:state.studentList,
-//                             //  modal:!state.modal
-//             },
-            console.log("###",state.studentList)
-        }
+filteredList:[...state.students]
+                }}
             
-            //     {
-            //         const {studentList,selectedStudent}=state
-            //         console.log("!!!",studentList)
-            // //       const  List=[...studentList]
-            // //       console.log("@@",List)
-               
-            // //         // newData.push({Id:selectedStudent.Id,First_Name:selectedStudent.First_Name,Last_Name:selectedStudent.LastName,Aggregate_Mark:selectedStudent.Aggregate_Mark})
-            // //  List.splice(0,0,selectedStudent)
-            // // console.log("EE",List)
-            //  return{
-            //       ...state, 
-            //    //   selectedStudent:state.selectedStudent
-            //     //  studentList:{
-            //     //      List
-            //     //  }
-            //  // selectedStudent:state.selectedStudent  
-            // //   selectedindex:"",
-            // //  id:"",
-            // //  first_Name:"",
-            // //  last_Name:"",
-            // //  aggregate_Mark:""
-            //   },console.log("PPPPPPPP",studentList)
-             
-            // }
+            else{
+                console.log("ID already existing")
+                return{
+                    ...state,
+                    show:!state.show,
+                    students:[...List],
+                    filteredList:[...state.students]        }
+            }}
+          case CANCEL:{
+              console.log("kerii")
+              return{
+                  ...state,
+                  modal:!state.modal,
+                  show:!state.show
+              }
+          }
+case CLEAR_TEXT:{
+    const {students}=state 
+    return{
+students:[...state.filteredList]
+    }
+}
+
+
+            case FIND_STUDENT:{
+                const {students}=state
+        
+               const   studentList=state.filteredList
+              const List= studentList.filter((item)=>{
+                         return item.First_Name.toLowerCase().concat(item.Last_Name.toLowerCase()).includes(action.params.toLowerCase())
+                       })
+return{
+    ...state, 
+       
+      students:[...List],
+     
+            }}
     default:return state
 }
 }

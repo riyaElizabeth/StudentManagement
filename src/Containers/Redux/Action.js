@@ -1,17 +1,11 @@
-import {DELETE,EDIT,CHANGE,EDIT_STUDENT,ADD} from'./ActionType';
-import { render } from '@testing-library/react';
+import {DELETE,EDIT,ADD, FIND_STUDENT, CLEAR_TEXT, CANCEL} from'./ActionType';
 export const deleteStudent=(params)=>{
 return{
     type:DELETE,
     params
 } 
 }
-export const editStudent=(params)=>{
-    return{
-        type:EDIT_STUDENT,
-        params
-    }
-}
+
 
 export const editNew=(params)=>{
     return{
@@ -19,12 +13,7 @@ export const editNew=(params)=>{
         params
     }
 }
-export const Change =(params)=>{
-    return{
-        type:CHANGE,
-        params
-    }
-}
+
 
 export const Add=(params)=>{
     return{
@@ -33,3 +22,22 @@ export const Add=(params)=>{
         
     }
 }
+export const findStudent=(params)=>{
+    return{
+        type:FIND_STUDENT,
+        params
+    }
+}
+
+export const clearText=()=>{
+    return{
+        type:CLEAR_TEXT
+    }
+}
+
+export const cancel=()=>{
+    return{
+type:CANCEL
+    }
+} 
+    

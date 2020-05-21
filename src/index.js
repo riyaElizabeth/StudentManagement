@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter , Route} from 'react-router-dom'
 //import {Nav,Link} from 'reactstrap'
 import Home from './Containers/Student/Home'
-import Student from './Containers/Student/Student';
+import List from './Containers/Student/List';
 
 import Addrow from './Containers/Student/Addrow';
 import Search from './Containers/Student/Search';
@@ -27,7 +27,7 @@ ReactDOM.render(
   <Route exact path="/"  component ={Home}  />
   <Route path="/Home" component ={Home}/>
   <Route path="/Add" component ={Addrow}/>
-  <Route path="/Student" component ={Student}/>
+  <Route path="/Student" component ={List}/>
   <Route path="/Search" component ={Search}/>
 </BrowserRouter>
    </Provider>

@@ -1,36 +1,53 @@
 import React, { Component } from 'react';
 import Navigation from './nav';
 import { connect } from 'react-redux';
-import { Change,Add } from '../Redux/Action';
+import { cancel,Add } from '../Redux/Action'
+import alert from './Alert'
+import { Alert,Button } from 'react-bootstrap';
 
 class Addrow extends Component{
-
+state={
+  selectedStudent:{
+    Id:undefined,
+      First_Name:undefined,
+      Last_Name:undefined,
+      Aggregate_Mark:undefined,
+      selectedId:undefined,
+      index:undefined,
+    
+    },
+}
 handleChangeInput=(e)=>{
   const {name,value}=e.target
-  const {selectedStudent}=this.props
-  selectedStudent[name]=value
-  console.log("**",selectedStudent)
-}
+   this.state. selectedStudent[name]=value
+ }
 navigate=(path)=>{
+  console.log("PATH",this.props.history)
   this.props.history.push(path)
    }
+   setShow=()=>{
+     this.props.cancel()
+   }
 render(){
-  console.log("_____",this.props.studentList)
-    return (
+      return (
     <div>
         <Navigation
           navigate={this.navigate}/>
         <label>Row No:</label><br/>
-      <input type="Number" name='index' onChange={(e)=>{this.handleChangeInput(e)}} placeholder="index" /><br/>
+      <input type="Number" name='index' onChange={(e)=>{this.handleChangeInput(e)}} value={this.state.selectedStudent.index} placeholder="index" /><br/>
 <label>Id:</label><br/>
-<input type="Number"  name="Id" placeholder="Id" onChange={(e)=>{this.handleChangeInput(e)}} /><br/>
+<input type="Number"  name="Id" placeholder="Id"  value={this.state.selectedStudent.Id} onChange={(e)=>{this.handleChangeInput(e)}} /><br/>
 <label>First Name:</label><br/>
-      <input type="Text" name="First_Name" onChange={(e)=>{this.handleChangeInput(e)}} placeholder="First Name" /><br/>
+      <input type="Text" name="First_Name" onChange={(e)=>{this.handleChangeInput(e)}}  value={this.state.selectedStudent.First_Name} placeholder="First Name" /><br/>
       <label>Last Name:</label><br/>
-      <input type="Text" name="Last_Name" onChange={(e)=>{this.handleChangeInput(e)}} placeholder="Last Name" /><br/>
+      <input type="Text" name="Last_Name" onChange={(e)=>{this.handleChangeInput(e)}}  value={this.state.selectedStudent.Last_Name} placeholder="Last Name" /><br/>
       <label>Aggregate Mark:</label><br/>
-      <input type="Number" name="Aggregate_Mark" onChange={(e)=>{this.handleChangeInput(e)}} placeholder="Aggregate Mark"  /><br/>
-<button type="button" onClick={()=>{this.props.addItem(this.props.selectedStudent)}}>Add</button><br/>
+      <input type="Number" name="Aggregate_Mark" onChange={(e)=>{this.handleChangeInput(e)}}  value={this.state.selectedStudent.Aggregate_Mark} placeholder="Aggregate Mark"  /><br/>
+<button type="button" onClick={()=>{this.props.addItem(this.state.selectedStudent)}}>Add</button><br/>
+
+<alert show={this.props.show}></alert>
+
+
 </div>
     )
    
@@ -39,22 +56,20 @@ render(){
   const mapStateToProps=state=>{
     console.log("IN ADDDROW",state)
 return{    
-        studentList:state.students,
-       // modal:state.modal,
-        selectedStudent:state.selectedStudent,
-        selectedId:state.selectedId
-
-
+      
+  show:state.show
+       
 
     }
     
-}
-const mapDispatchToProps=(dispach)=>{
+ }
+const mapDispatchToProps=(dispatch)=>{
   console.log("%%")
   
    return{
-      addItem:(selectedStudent)=>dispach(Add(selectedStudent)),
-      Change:(newStudent)=>dispach(Change(newStudent)),
+      addItem:(selectedStudent)=>dispatch(Add(selectedStudent)),
+      cancel:()=>dispatch(cancel())
+    
   }
 }
  
